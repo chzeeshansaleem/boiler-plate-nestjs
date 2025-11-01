@@ -22,7 +22,7 @@ import { FilesModule } from '../files/files.module';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>(JWT_SECRET),
         signOptions: {
-          expiresIn: configService.get<string>(ACCESS_TOKEN_EXPIRY_TIME),
+          expiresIn: parseInt(configService.get<string>(ACCESS_TOKEN_EXPIRY_TIME)),
         },
       }),
       inject: [ConfigService],

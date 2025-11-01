@@ -10,7 +10,7 @@ export class EmailService {
     private readonly configService: ConfigService,
     private readonly templateService: TemplateService,
   ) {}
-  transporter = nodemailer.createTransport(this.configService.get('emailConfig'));
+  transporter = nodemailer.createTransport(this.configService.get<any>('emailConfig'));
 
   // Function to send an email
   async sendEmail(
@@ -24,13 +24,13 @@ export class EmailService {
       const html = this.templateService[templateName](...Object.values(placeholders));
       // Define email options
       const mailOptions = {
-        from: this.configService.get('FROM_EMAIL'),
+        from: this.configService.get<string>('FROM_EMAIL'),
         to,
         subject,
         html,
       };
       // Send the email
-      this.transporter.sendMail(mailOptions);
+      await this.transporter.sendMail(mailOptions);
     } catch (error) {
       Logger.error(
         `Error in sending email where: params: ${JSON.stringify({ to, subject, templateName, placeholders })}`,

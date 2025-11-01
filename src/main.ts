@@ -10,7 +10,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  if (config.get('ENABLE_DOCS') === 'true') {
+  if (config.get<string>('ENABLE_DOCS') === 'true') {
     // Implementing swagger documentation
     const swaggerConfig = new DocumentBuilder()
       .setTitle('Boiler plate Apis')
@@ -24,8 +24,8 @@ async function bootstrap() {
     SwaggerModule.setup('api-documentation', app, document);
   }
 
-  await app.listen(config.get('PORT'), () => {
-    Logger.log(`App is listining on port: ${config.get('PORT')}`);
-  });
+  const port = config.get<string>('PORT');
+  await app.listen(port);
+  Logger.log(`App is listening on port: ${port}`);
 }
 bootstrap();

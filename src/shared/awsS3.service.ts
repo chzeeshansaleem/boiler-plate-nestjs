@@ -14,7 +14,7 @@ export class AwsS3Service {
   awsS3Config: AwsS3ConfigInterface;
 
   constructor(public configService: ConfigService) {
-    this.awsS3Config = this.configService.get('awsS3Config');
+    this.awsS3Config = this.configService.get<AwsS3ConfigInterface>('awsS3Config');
     const s3Options: AWS.S3.ClientConfiguration = {
       region: this.awsS3Config.region,
       credentials: {
