@@ -4,6 +4,18 @@ import { UserStatus } from '../enums/status.enum';
 
 export const usersData = [
   {
+    firstName: 'Zeeshan',
+    lastName: 'Saleem',
+    status: UserStatus.ACTIVE,
+    email: 'zeeshan.saleem@focusteck.com',
+    gender: UserGender.MALE,
+    phoneNo: '+923440177289',
+    password: 'Abcdef@123',
+    emailVerified: true,
+    phoneVerified: true,
+    role: ROLES.SUPER_ADMIN,
+  },
+  {
     firstName: 'Rehman',
     lastName: 'Akram',
     status: UserStatus.ACTIVE,

@@ -51,7 +51,54 @@ API Swagger documentation is available at `baseUrl + /api-documentation`
 - If you are using localhost at port 3000, the app backend will work at: `http://localhost:3000`
 - You can find API documentation at: `http://localhost:3000/api-documentation`
 
-**Note:** Make sure `ENABLE_DOCS=true` is set in your `.env` file to enable Swagger documentation. 
+**Note:** Make sure `ENABLE_DOCS=true` is set in your `.env` file to enable Swagger documentation.
+
+## Health Checks
+
+The application includes comprehensive health check monitoring available at `GET /health`. This endpoint is publicly accessible and provides:
+
+- **Database Connection Status** - Checks PostgreSQL connection health
+- **Memory Usage** - Monitors heap and RSS memory consumption
+- **Disk Storage** - Checks available disk space
+
+**Example Response (Healthy):**
+```json
+{
+  "status": "ok",
+  "info": {
+    "database": { "status": "up" },
+    "memory_heap": { "status": "up" },
+    "memory_rss": { "status": "up" },
+    "storage": { "status": "up" }
+  },
+  "error": {},
+  "details": {
+    "database": { "status": "up" },
+    "memory_heap": { "status": "up" },
+    "memory_rss": { "status": "up" },
+    "storage": { "status": "up" }
+  }
+}
+```
+
+**Example Response (Unhealthy):**
+```json
+{
+  "status": "error",
+  "info": {},
+  "error": {
+    "database": { "status": "down", "message": "..." }
+  },
+  "details": {
+    "database": { "status": "down", "message": "..." }
+  }
+}
+```
+
+The health endpoint returns HTTP 200 when healthy and HTTP 503 when unhealthy, making it perfect for:
+- Load balancer health checks
+- Container orchestration (Kubernetes liveness/readiness probes)
+- Monitoring and alerting systems 
 
 ### Swagger documentation
 For swagger documentation, @nestjs/swagger plugin is used in nest-cli with suitable options.
@@ -136,6 +183,7 @@ For authentication, JWT (JSON Web Tokens) is used with Passport.js strategy. The
 - **AWS SDK** 2.1692.0 - AWS S3 integration for file storage
 - **Nodemailer** 7.0.10 - Email service
 - **class-validator** & **class-transformer** - DTO validation
+- **@nestjs/terminus** - Health checks and monitoring
 
 ## Scripts
 

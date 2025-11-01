@@ -21,6 +21,7 @@ import { GroupsModule } from './groups/groups.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { PermissionGuard } from './auth/guards/permission.guard';
 import { FilesModule } from './files/files.module';
+import { HealthModule } from './health/health.module';
 
 const globalFilters = [
   ConflictExceptionFilter,
@@ -51,6 +52,7 @@ const globalFilters = [
     GroupsModule,
     PermissionsModule,
     FilesModule,
+    HealthModule,
   ],
   providers: [
     {
